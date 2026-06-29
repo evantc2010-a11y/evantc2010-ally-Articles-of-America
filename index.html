@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Articles of America</title>
+<style>
+  :root {
+    --navy: #0A1A35;
+    --red: #B0303A;
+    --paper: #F7F5F0;
+    --ink: #1C1C1C;
+    --steel: #3D5A80;
+    --hairline: #D8D4CC;
+    --white: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.4;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* ---------- Top utility bar ---------- */
+  .utility-bar {
+    background: var(--navy);
+    color: rgba(255,255,255,0.75);
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
+  }
+  .utility-bar .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 34px;
+  }
+  .utility-bar .date {
+    font-variant-numeric: tabular-nums;
+  }
+  .utility-bar nav a {
+    margin-left: 16px;
+    color: rgba(255,255,255,0.75);
+  }
+  .utility-bar nav a:hover { color: var(--white); }
+
+  /* ---------- Masthead ---------- */
+  .masthead {
+    background: var(--paper);
+    padding: 28px 0 16px;
+    text-align: center;
+  }
+  .masthead h1 {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-weight: 700;
+    font-size: 52px;
+    letter-spacing: -0.01em;
+    color: var(--navy);
+  }
+  .masthead .tagline {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--steel);
+    margin-top: 6px;
+    font-weight: 600;
+  }
+
+  .tri-rule {
+    height: 5px;
+    width: 100%;
+    background: linear-gradient(
+      to right,
+      var(--red) 0 33.33%,
+      var(--white) 33.33% 66.66%,
+      var(--steel) 66.66% 100%
+    );
+  }
+
+  /* ---------- Main nav ---------- */
+  .main-nav {
+    background: var(--navy);
+    border-bottom: 3px solid var(--red);
+  }
+  .main-nav ul {
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+  }
+  .main-nav li a {
+    display: block;
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    padding: 13px 18px;
+    text-transform: uppercase;
+  }
+  .main-nav li a:hover {
+    background: rgba(255,255,255,0.08);
+  }
+  .main-nav li.live a {
+    color: #FFD8D8;
+  }
+  .live-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--red);
+    margin-right: 6px;
+    animation: pulse 1.8s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+
+  /* ---------- Lead grid ---------- */
+  .lead-section {
+    padding: 34px 0 10px;
+  }
+  .lead-grid {
+    display: grid;
+    grid-template-columns: 1.7fr 1fr;
+    gap: 32px;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+    display: inline-block;
+  }
+
+  .lead-story img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    background: #ccc;
+    border-radius: 2px;
+  }
+  .lead-story h2 {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 34px;
+    line-height: 1.12;
+    margin: 14px 0 10px;
+    color: var(--navy);
+  }
+  .lead-story p.dek {
+    font-size: 16px;
+    color: #4a4a4a;
+    margin-bottom: 10px;
+  }
+  .byline {
+    font-size: 12.5px;
+    color: #777;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .secondary-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .secondary-story {
+    display: grid;
+    grid-template-columns: 1fr 96px;
+    gap: 14px;
+    border-bottom: 1px solid var(--hairline);
+    padding-bottom: 16px;
+  }
+  .secondary-story:last-child { border-bottom: none; }
+  .secondary-story img {
+    width: 96px;
+    height: 72px;
+    object-fit: cover;
+    background: #ccc;
+    border-radius: 2px;
+  }
+  .secondary-story h3 {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 17px;
+    line-height: 1.25;
+    color: var(--navy);
+  }
+  .secondary-story .byline { margin-top: 6px; }
+
+  /* ---------- Section header ---------- */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-top: 3px solid var(--navy);
+    padding-top: 10px;
+    margin: 38px 0 18px;
+  }
+  .section-header h2 {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 22px;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .section-header a.viewall {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--steel);
+  }
+  .section-header a.viewall:hover { color: var(--red); }
+
+  /* ---------- Card grid (Axios-style) ---------- */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .card {
+    background: var(--white);
+    border: 1px solid var(--hairline);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .card img {
+    width: 100%;
+    aspect-ratio: 16/10;
+    object-fit: cover;
+    background: #ccc;
+  }
+  .card-body {
+    padding: 16px 18px 18px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .card h3 {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 18px;
+    line-height: 1.25;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+  .smart-brevity {
+    list-style: none;
+    font-size: 13.5px;
+    color: #444;
+    margin: 0 0 12px;
+    flex: 1;
+  }
+  .smart-brevity li {
+    position: relative;
+    padding-left: 14px;
+    margin-bottom: 5px;
+  }
+  .smart-brevity li::before {
+    content: "•";
+    color: var(--red);
+    font-weight: 700;
+    position: absolute;
+    left: 0;
+  }
+  .card .byline { margin-top: auto; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.7);
+    margin-top: 50px;
+    padding: 36px 0 28px;
+    font-size: 13px;
+  }
+  footer .wrap {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  footer .brand {
+    font-family: Georgia, serif;
+    font-size: 20px;
+    color: var(--white);
+    font-weight: 700;
+  }
+  footer .cols {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  footer .cols a {
+    display: block;
+    margin-bottom: 8px;
+    color: rgba(255,255,255,0.65);
+  }
+  footer .cols a:hover { color: var(--white); }
+  footer .legal {
+    text-align: center;
+    margin-top: 28px;
+    color: rgba(255,255,255,0.4);
+    font-size: 12px;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px) {
+    .lead-grid { grid-template-columns: 1fr; }
+    .card-grid { grid-template-columns: 1fr 1fr; }
+    .masthead h1 { font-size: 38px; }
+  }
+  @media (max-width: 560px) {
+    .card-grid { grid-template-columns: 1fr; }
+    .utility-bar nav a { margin-left: 10px; }
+    .main-nav ul { overflow-x: auto; flex-wrap: nowrap; }
+    .secondary-story { grid-template-columns: 1fr 80px; }
+    .secondary-story img { width: 80px; height: 60px; }
+  }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--steel);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .live-dot { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="utility-bar">
+    <div class="wrap">
+      <span class="date" id="todayDate"></span>
+      <nav>
+        <a href="#">Newsletter</a>
+        <a href="#">Sign In</a>
+        <a href="#">Subscribe</a>
+      </nav>
+    </div>
+  </div>
+
+  <header class="masthead">
+    <h1>Articles of America</h1>
+    <p class="tagline">Clear reporting. Every story, straight.</p>
+  </header>
+
+  <div class="tri-rule"></div>
+
+  <nav class="main-nav">
+    <div class="wrap">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">World</a></li>
+        <li><a href="#">Politics</a></li>
+        <li><a href="#">Business</a></li>
+        <li><a href="#">Tech</a></li>
+        <li><a href="#">Sports</a></li>
+        <li class="live"><a href="#"><span class="live-dot"></span>Live</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <!-- LEAD SECTION -->
+    <section class="lead-section">
+      <div class="lead-grid">
+        <article class="lead-story">
+          <span class="eyebrow">Politics</span>
+          <img src="https://images.unsplash.com/photo-1555848962-6e79363ec58f?w=900&h=506&fit=crop" alt="Capitol building exterior">
+          <h2>Senate negotiators reach deal on infrastructure funding bill</h2>
+          <p class="dek">Bipartisan group says the package clears a key procedural hurdle, setting up a floor vote as early as next week.</p>
+          <p class="byline">By Maria Chen · 8 min read</p>
+        </article>
+
+        <div class="secondary-stack">
+          <article class="secondary-story">
+            <div>
+              <span class="eyebrow">World</span>
+              <h3>Trade talks resume in Geneva after two-week pause</h3>
+              <p class="byline">Reuters · 4 min read</p>
+            </div>
+            <img src="https://images.unsplash.com/photo-1526129318478-62ed807ebdf9?w=200&h=150&fit=crop" alt="Geneva conference building">
+          </article>
+          <article class="secondary-story">
+            <div>
+              <span class="eyebrow">Business</span>
+              <h3>Markets edge higher as inflation data cools</h3>
+              <p class="byline">James Okafor · 5 min read</p>
+            </div>
+            <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=200&h=150&fit=crop" alt="Stock market ticker display">
+          </article>
+          <article class="secondary-story">
+            <div>
+              <span class="eyebrow">Tech</span>
+              <h3>Lawmakers question chipmakers over export controls</h3>
+              <p class="byline">Priya Subramaniam · 6 min read</p>
+            </div>
+            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=200&h=150&fit=crop" alt="Semiconductor chip closeup">
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORLD -->
+    <section>
+      <div class="section-header">
+        <h2>World</h2>
+        <a class="viewall" href="#">View all →</a>
+      </div>
+      <div class="card-grid">
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1543339494-b4cd4f7ba686?w=500&h=312&fit=crop" alt="United Nations headquarters">
+          <div class="card-body">
+            <h3>UN council convenes emergency session on regional ceasefire</h3>
+            <ul class="smart-brevity">
+              <li>Vote expected within 48 hours.</li>
+              <li>Three member states pushing for stronger enforcement language.</li>
+              <li>Aid corridors remain a sticking point.</li>
+            </ul>
+            <p class="byline">Tomas Reyes · 5 min read</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1577086664693-894d8405334a?w=500&h=312&fit=crop" alt="Cargo ships at a port">
+          <div class="card-body">
+            <h3>Shipping costs climb as Red Sea rerouting continues</h3>
+            <ul class="smart-brevity">
+              <li>Insurers raise war-risk premiums for the third time this year.</li>
+              <li>Retailers warn of holiday season delays.</li>
+            </ul>
+            <p class="byline">Aisha Bello · 4 min read</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=500&h=312&fit=crop" alt="European parliament building">
+          <div class="card-body">
+            <h3>EU finance ministers to meet on shared defense spending</h3>
+            <ul class="smart-brevity">
+              <li>Proposal would pool procurement across member states.</li>
+              <li>Germany and France have signaled cautious support.</li>
+            </ul>
+            <p class="byline">Lukas Berg · 6 min read</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- BUSINESS -->
+    <section>
+      <div class="section-header">
+        <h2>Business</h2>
+        <a class="viewall" href="#">View all →</a>
+      </div>
+      <div class="card-grid">
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1559136555-9333016e2a2c?w=500&h=312&fit=crop" alt="Federal Reserve building">
+          <div class="card-body">
+            <h3>Fed signals it may hold rates steady through summer</h3>
+            <ul class="smart-brevity">
+              <li>Officials cite mixed signals on hiring and consumer spending.</li>
+              <li>Markets had priced in a 60% chance of a cut.</li>
+            </ul>
+            <p class="byline">James Okafor · 5 min read</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500&h=312&fit=crop" alt="Retail store interior">
+          <div class="card-body">
+            <h3>Retail sales beat forecasts despite higher borrowing costs</h3>
+            <ul class="smart-brevity">
+              <li>Spending strongest in home goods and apparel.</li>
+              <li>Analysts split on whether the trend holds into fall.</li>
+            </ul>
+            <p class="byline">Dana Whitfield · 4 min read</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=500&h=312&fit=crop" alt="Office workers in a meeting">
+          <div class="card-body">
+            <h3>Mid-size firms lead latest round of merger activity</h3>
+            <ul class="smart-brevity">
+              <li>Deal volume up 18% from last quarter.</li>
+              <li>Regulators say they'll scrutinize larger tie-ups closely.</li>
+            </ul>
+            <p class="byline">Sofia Marchetti · 3 min read</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- TECH -->
+    <section>
+      <div class="section-header">
+        <h2>Tech</h2>
+        <a class="viewall" href="#">View all →</a>
+      </div>
+      <div class="card-grid">
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500&h=312&fit=crop" alt="Data center server racks">
+          <div class="card-body">
+            <h3>States move to set their own AI safety standards</h3>
+            <ul class="smart-brevity">
+              <li>At least nine states have introduced related bills this year.</li>
+              <li>Industry groups push for a single federal framework instead.</li>
+            </ul>
+            <p class="byline">Priya Subramaniam · 6 min read</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&h=312&fit=crop" alt="Microchip on circuit board">
+          <div class="card-body">
+            <h3>New export rules target advanced chip manufacturing tools</h3>
+            <ul class="smart-brevity">
+              <li>Rules narrow which equipment can be sold abroad.</li>
+              <li>Industry says compliance costs will rise sharply.</li>
+            </ul>
+            <p class="byline">Wen Zhao · 5 min read</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=500&h=312&fit=crop" alt="Laptop showing code">
+          <div class="card-body">
+            <h3>Startups race to build tools for verifying AI-generated content</h3>
+            <ul class="smart-brevity">
+              <li>Funding for detection tools has tripled since last year.</li>
+              <li>Accuracy still varies widely between vendors.</li>
+            </ul>
+            <p class="byline">Hannah Brooks · 4 min read</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SPORTS -->
+    <section>
+      <div class="section-header">
+        <h2>Sports</h2>
+        <a class="viewall" href="#">View all →</a>
+      </div>
+      <div class="card-grid">
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1546519638-68e109498ffd?w=500&h=312&fit=crop" alt="Basketball arena during a game">
+          <div class="card-body">
+            <h3>Underdog squad punches ticket to conference finals</h3>
+            <ul class="smart-brevity">
+              <li>Team has won six straight after a slow start to the season.</li>
+              <li>Coach credits a midseason defensive overhaul.</li>
+            </ul>
+            <p class="byline">Marcus Tillman · 3 min read</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1551958219-acbc608c6377?w=500&h=312&fit=crop" alt="Football stadium aerial view">
+          <div class="card-body">
+            <h3>League owners to vote on expanded playoff format</h3>
+            <ul class="smart-brevity">
+              <li>Proposal would add two wild-card spots per conference.</li>
+              <li>Players' association has raised scheduling concerns.</li>
+            </ul>
+            <p class="byline">Renee Castillo · 4 min read</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?w=500&h=312&fit=crop" alt="Runners at the start of a race">
+          <div class="card-body">
+            <h3>Marathon record falls for the second time in three years</h3>
+            <ul class="smart-brevity">
+              <li>New mark beats the previous record by 22 seconds.</li>
+              <li>Organizers credit ideal weather and a redesigned course.</li>
+            </ul>
+            <p class="byline">Marcus Tillman · 3 min read</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div>
+        <p class="brand">Articles of America</p>
+      </div>
+      <div class="cols">
+        <div>
+          <a href="#">About Us</a>
+          <a href="#">Newsroom Ethics</a>
+          <a href="#">Careers</a>
+        </div>
+        <div>
+          <a href="#">Contact</a>
+          <a href="#">Advertise</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+        <div>
+          <a href="#">RSS</a>
+          <a href="#">Newsletter</a>
+          <a href="#">Sitemap</a>
+        </div>
+      </div>
+    </div>
+    <p class="legal">© 2026 Articles of America. All rights reserved. Placeholder content for demonstration purposes.</p>
+  </footer>
+
+  <script>
+    document.getElementById('todayDate').textContent = new Date().toLocaleDateString('en-US', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+  </script>
+
+</body>
+</html>
