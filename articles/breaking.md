@@ -1,5 +1,5 @@
 ---
-title: "BREAKING:"
+title: "US cuts all trade with NATO ally Spain "
 category: World
 author: "Evan Chen "
 image: /images/1653346_0.jpeg.webp
