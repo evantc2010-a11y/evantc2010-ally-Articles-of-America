@@ -25,7 +25,11 @@ module.exports = function(eleventyConfig) {
       includes: "_includes",
       data: "_data"
     },
+    pathPrefix: "/evantc2010-ally-Articles-of-America/",
     templateFormats: ["njk", "md", "html"],
+    markdownTemplateEngine: "njk",
+    htmlTemplateEngine: "njk"
+  };
     markdownTemplateEngine: "njk",
     htmlTemplateEngine: "njk"
   };
