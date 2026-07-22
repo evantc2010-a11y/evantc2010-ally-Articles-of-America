@@ -1,0 +1,142 @@
+---
+layout: base.njk
+title: Home
+---
+
+<style>
+  .lead-section { padding: 34px 0 10px; }
+  .lead-grid { display: grid; grid-template-columns: 1.7fr 1fr; gap: 32px; }
+  .eyebrow {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--red);
+    margin-bottom: 8px; display: inline-block;
+  }
+  .lead-story img {
+    width: 100%; aspect-ratio: 16/9; object-fit: cover;
+    background: #ccc; border-radius: 2px;
+  }
+  .lead-story h2 {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 34px; line-height: 1.12;
+    margin: 14px 0 10px; color: var(--navy);
+  }
+  .lead-story p.dek { font-size: 16px; color: #4a4a4a; margin-bottom: 10px; }
+  .byline { font-size: 12.5px; color: #777; text-transform: uppercase; letter-spacing: 0.03em; }
+  .secondary-stack { display: flex; flex-direction: column; gap: 18px; }
+  .secondary-story {
+    display: grid; grid-template-columns: 1fr 96px; gap: 14px;
+    border-bottom: 1px solid var(--hairline); padding-bottom: 16px;
+  }
+  .secondary-story:last-child { border-bottom: none; }
+  .secondary-story img { width: 96px; height: 72px; object-fit: cover; background: #ccc; border-radius: 2px; }
+  .secondary-story h3 {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 17px; line-height: 1.25; color: var(--navy);
+  }
+  .secondary-story .byline { margin-top: 6px; }
+  .section-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    border-top: 3px solid var(--navy); padding-top: 10px; margin: 38px 0 18px;
+  }
+  .section-header h2 {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 22px; color: var(--navy);
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .section-header a.viewall { font-size: 13px; font-weight: 600; color: var(--steel); }
+  .section-header a.viewall:hover { color: var(--red); }
+  .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .card {
+    background: var(--white); border: 1px solid var(--hairline);
+    border-radius: 6px; overflow: hidden; display: flex; flex-direction: column;
+  }
+  .card img { width: 100%; aspect-ratio: 16/10; object-fit: cover; background: #ccc; }
+  .card-body { padding: 16px 18px 18px; flex: 1; display: flex; flex-direction: column; }
+  .card h3 {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 18px; line-height: 1.25; color: var(--navy); margin-bottom: 10px;
+  }
+  .smart-brevity { list-style: none; font-size: 13.5px; color: #444; margin: 0 0 12px; flex: 1; }
+  .smart-brevity li { position: relative; padding-left: 14px; margin-bottom: 5px; }
+  .smart-brevity li::before { content: "•"; color: var(--red); font-weight: 700; position: absolute; left: 0; }
+  .card .byline { margin-top: auto; }
+  .empty-section { color: #999; font-size: 14px; font-style: italic; padding: 10px 0 20px; }
+  @media (max-width: 860px) { .lead-grid { grid-template-columns: 1fr; } .card-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .card-grid { grid-template-columns: 1fr; } .secondary-story { grid-template-columns: 1fr 80px; } .secondary-story img { width: 80px; height: 60px; } }
+</style>
+
+{% set allArticles = collections.articles | reverse %}
+{% set leadArticle = allArticles[0] %}
+{% set secondaryArticles = allArticles | slice(1, 4) %}
+
+<main class="wrap">
+
+  {% if leadArticle %}
+  <section class="lead-section">
+    <div class="lead-grid">
+      <article class="lead-story">
+        <a href="{{ leadArticle.url }}">
+          {% if leadArticle.data.image %}
+          <img src="{{ leadArticle.data.image }}" alt="{{ leadArticle.data.title }}">
+          {% endif %}
+          {% if leadArticle.data.category %}<span class="eyebrow">{{ leadArticle.data.category }}</span>{% endif %}
+          <h2>{{ leadArticle.data.title }}</h2>
+          {% if leadArticle.data.summary %}<p class="dek">{{ leadArticle.data.summary[0] }}</p>{% endif %}
+          <p class="byline">By {{ leadArticle.data.author }}</p>
+        </a>
+      </article>
+      <div class="secondary-stack">
+        {% for article in secondaryArticles %}
+        <article class="secondary-story">
+          <a href="{{ article.url }}">
+            <div>
+              {% if article.data.category %}<span class="eyebrow">{{ article.data.category }}</span>{% endif %}
+              <h3>{{ article.data.title }}</h3>
+              <p class="byline">{{ article.data.author }}</p>
+            </div>
+            {% if article.data.image %}<img src="{{ article.data.image }}" alt="{{ article.data.title }}">{% endif %}
+          </a>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  {% set categories = ["U.S.", "World", "Politics", "Weather", "Business", "Tech", "Sports"] %}
+  {% for cat in categories %}
+  {% set catArticles = allArticles | byCategory(cat) | limit(3) %}
+  {% set catSlug = cat | lower | replace(".", "") | replace(" ", "-") %}
+  <section>
+    <div class="section-header">
+      <h2>{{ cat }}</h2>
+      <a class="viewall" href="/category/{{ catSlug }}/">View all →</a>
+    </div>
+    {% if catArticles.length %}
+    <div class="card-grid">
+      {% for article in catArticles %}
+      <article class="card">
+        <a href="{{ article.url }}">
+          {% if article.data.image %}<img src="{{ article.data.image }}" alt="{{ article.data.title }}">{% endif %}
+          <div class="card-body">
+            <h3>{{ article.data.title }}</h3>
+            {% if article.data.summary %}
+            <ul class="smart-brevity">
+              {% for bullet in article.data.summary | limit(2) %}
+              <li>{{ bullet }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+            <p class="byline">{{ article.data.author }}</p>
+          </div>
+        </a>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="empty-section">No articles yet in this category.</p>
+    {% endif %}
+  </section>
+  {% endfor %}
+
+</main>
