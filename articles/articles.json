@@ -1,6 +1,5 @@
 {
   "layout": "article.njk",
   "tags": ["articles"],
-  "permalink": "/evantc2010-ally-Articles-of-America/articles/{{ page.fileSlug }}/"
+  "permalink": "/articles/{{ page.fileSlug }}/"
 }
-
