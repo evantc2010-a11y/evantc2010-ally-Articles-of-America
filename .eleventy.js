@@ -15,7 +15,6 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addFilter("limit", (array, n) => array.slice(0, n));
 
   return {
-    pathPrefix: "/evantc2010-ally-Articles-of-America/",
     dir: {
       input: ".",
       output: "_site",
