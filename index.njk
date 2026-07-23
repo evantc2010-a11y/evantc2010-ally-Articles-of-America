@@ -50,6 +50,7 @@ permalink: /
   .card {
     background: var(--white); border: 1px solid var(--hairline);
     border-radius: 6px; overflow: hidden; display: flex; flex-direction: column;
+    cursor: pointer;
   }
   .card img { width: 100%; aspect-ratio: 16/10; object-fit: cover; background: #ccc; }
   .card-body { padding: 16px 18px 18px; flex: 1; display: flex; flex-direction: column; }
@@ -66,78 +67,87 @@ permalink: /
   @media (max-width: 560px) { .card-grid { grid-template-columns: 1fr; } .secondary-story { grid-template-columns: 1fr 80px; } .secondary-story img { width: 80px; height: 60px; } }
 </style>
 
-{% set allArticles = collections.articles | reverse %}
-{% set leadArticle = allArticles[0] %}
-{% set secondaryArticles = allArticles | slice(1, 4) %}
-
-<main class="wrap">
-
-  {% if leadArticle %}
-  <section class="lead-section">
-    <div class="lead-grid">
-      <article class="lead-story">
-        <a href="{{ leadArticle.url }}">
-          {% if leadArticle.data.image %}
-          <img src="{{ leadArticle.data.image }}" alt="{{ leadArticle.data.title }}">
-          {% endif %}
-          {% if leadArticle.data.category %}<span class="eyebrow">{{ leadArticle.data.category }}</span>{% endif %}
-          <h2>{{ leadArticle.data.title }}</h2>
-          {% if leadArticle.data.summary %}<p class="dek">{{ leadArticle.data.summary[0] }}</p>{% endif %}
-          <p class="byline">By {{ leadArticle.data.author }}</p>
-        </a>
-      </article>
-      <div class="secondary-stack">
-        {% for article in secondaryArticles %}
-        <article class="secondary-story">
-          <a href="{{ article.url }}">
-            <div>
-              {% if article.data.category %}<span class="eyebrow">{{ article.data.category }}</span>{% endif %}
-              <h3>{{ article.data.title }}</h3>
-              <p class="byline">{{ article.data.author }}</p>
-            </div>
-            {% if article.data.image %}<img src="{{ article.data.image }}" alt="{{ article.data.title }}">{% endif %}
-          </a>
-        </article>
-        {% endfor %}
-      </div>
-    </div>
-  </section>
-  {% endif %}
-
-  {% set categories = ["U.S.", "World", "Politics", "Weather", "Business", "Tech", "Sports"] %}
-  {% for cat in categories %}
-  {% set catArticles = allArticles | byCategory(cat) | limit(3) %}
-  {% set catSlug = cat | lower | replace(".", "") | replace(" ", "-") %}
-  <section>
-    <div class="section-header">
-      <h2>{{ cat }}</h2>
-      <a class="viewall" href="/category/{{ catSlug }}/">View all →</a>
-    </div>
-    {% if catArticles.length %}
-    <div class="card-grid">
-      {% for article in catArticles %}
-      <article class="card">
-        <a href="{{ article.url }}">
-          {% if article.data.image %}<img src="{{ article.data.image }}" alt="{{ article.data.title }}">{% endif %}
-          <div class="card-body">
-            <h3>{{ article.data.title }}</h3>
-            {% if article.data.summary %}
-            <ul class="smart-brevity">
-              {% for bullet in article.data.summary | limit(2) %}
-              <li>{{ bullet }}</li>
-              {% endfor %}
-            </ul>
-            {% endif %}
-            <p class="byline">{{ article.data.author }}</p>
-          </div>
-        </a>
-      </article>
-      {% endfor %}
-    </div>
-    {% else %}
-    <p class="empty-section">No articles yet in this category.</p>
-    {% endif %}
-  </section>
-  {% endfor %}
-
+<main class="wrap" id="main-content">
+  <p style="color:#999; padding: 40px 0; text-align:center;">Loading articles...</p>
 </main>
+
+<script>
+const BASE = '/evantc2010-ally-Articles-of-America';
+const CATEGORIES = ['U.S.', 'World', 'Politics', 'Weather', 'Business', 'Tech', 'Sports'];
+
+fetch(BASE + '/articles.json')
+  .then(r => r.json())
+  .then(articles => {
+    articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+    const main = document.getElementById('main-content');
+    let html = '';
+
+    // Lead section
+    const lead = articles[0];
+    const secondary = articles.slice(1, 4);
+    if (lead) {
+      html += `
+      <section class="lead-section">
+        <div class="lead-grid">
+          <article class="lead-story">
+            <a href="${lead.url}">
+              ${lead.image ? `<img src="${lead.image}" alt="${lead.title}">` : ''}
+              <span class="eyebrow">${lead.category}</span>
+              <h2>${lead.title}</h2>
+              ${lead.summary ? `<p class="dek">${lead.summary}</p>` : ''}
+              <p class="byline">By ${lead.author}</p>
+            </a>
+          </article>
+          <div class="secondary-stack">
+            ${secondary.map(a => `
+            <article class="secondary-story">
+              <a href="${a.url}">
+                <div>
+                  <span class="eyebrow">${a.category}</span>
+                  <h3>${a.title}</h3>
+                  <p class="byline">${a.author}</p>
+                </div>
+                ${a.image ? `<img src="${a.image}" alt="${a.title}">` : ''}
+              </a>
+            </article>`).join('')}
+          </div>
+        </div>
+      </section>`;
+    }
+
+    // Category sections
+    CATEGORIES.forEach(cat => {
+      const catArticles = articles.filter(a => a.category === cat).slice(0, 3);
+      const slug = cat.toLowerCase().replace('.', '').replace(' ', '-');
+      html += `
+      <section>
+        <div class="section-header">
+          <h2>${cat}</h2>
+          <a class="viewall" href="${BASE}/category/${slug}/">View all →</a>
+        </div>`;
+      if (catArticles.length) {
+        html += `<div class="card-grid">`;
+        catArticles.forEach(a => {
+          html += `
+          <article class="card" onclick="location.href='${a.url}'">
+            ${a.image ? `<img src="${a.image}" alt="${a.title}">` : ''}
+            <div class="card-body">
+              <h3>${a.title}</h3>
+              ${a.summary ? `<ul class="smart-brevity"><li>${a.summary}</li></ul>` : ''}
+              <p class="byline">${a.author}</p>
+            </div>
+          </article>`;
+        });
+        html += `</div>`;
+      } else {
+        html += `<p class="empty-section">No articles yet in this category.</p>`;
+      }
+      html += `</section>`;
+    });
+
+    main.innerHTML = html;
+  })
+  .catch(err => {
+    document.getElementById('main-content').innerHTML = '<p style="padding:40px;color:red;">Error loading articles.</p>';
+  });
+</script>
