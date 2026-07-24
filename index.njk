@@ -150,4 +150,104 @@ fetch(BASE + '/articles.json')
   .catch(err => {
     document.getElementById('main-content').innerHTML = '<p style="padding:40px;color:red;">Error loading articles.</p>';
   });
+<script>
+const BASE = '/evantc2010-ally-Articles-of-America';
+const CATEGORIES = ['U.S.', 'World', 'Politics', 'Weather', 'Business', 'Tech', 'Sports'];
+
+const articles = [
+  {
+    "title": "US cuts all trade with NATO ally Spain",
+    "category": "World",
+    "author": "Evan Chen",
+    "image": "/evantc2010-ally-Articles-of-America/images/1653346_0.jpeg.webp",
+    "summary": "Trump demands END to Spanish Trade",
+    "url": "/evantc2010-ally-Articles-of-America/articles/breaking/",
+    "date": "2026-07-08"
+  },
+  {
+    "title": "Andy Burnham is UK's next Prime Minister",
+    "category": "World",
+    "author": "Evan Chen",
+    "image": "",
+    "summary": "",
+    "url": "/evantc2010-ally-Articles-of-America/articles/andy-burnham-is-uks-next-prime-minister/",
+    "date": "2026-07-22"
+  },
+  {
+    "title": "Breaking: Graham Platner announces he will drop out of the race",
+    "category": "Politics",
+    "author": "Evan Chen",
+    "image": "",
+    "summary": "",
+    "url": "/evantc2010-ally-Articles-of-America/articles/breaking-graham-platner-announces-he-will-drop-out-of-the-race-for-u-s-senate-following-bombshell-allegations-of-rape/",
+    "date": "2026-07-08"
+  }
+];
+
+articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+const main = document.getElementById('main-content');
+let html = '';
+
+const lead = articles[0];
+const secondary = articles.slice(1, 4);
+if (lead) {
+  html += `
+  <section class="lead-section">
+    <div class="lead-grid">
+      <article class="lead-story">
+        <a href="${lead.url}">
+          ${lead.image ? `<img src="${lead.image}" alt="${lead.title}">` : ''}
+          <span class="eyebrow">${lead.category}</span>
+          <h2>${lead.title}</h2>
+          ${lead.summary ? `<p class="dek">${lead.summary}</p>` : ''}
+          <p class="byline">By ${lead.author}</p>
+        </a>
+      </article>
+      <div class="secondary-stack">
+        ${secondary.map(a => `
+        <article class="secondary-story">
+          <a href="${a.url}">
+            <div>
+              <span class="eyebrow">${a.category}</span>
+              <h3>${a.title}</h3>
+              <p class="byline">${a.author}</p>
+            </div>
+            ${a.image ? `<img src="${a.image}" alt="${a.title}">` : ''}
+          </a>
+        </article>`).join('')}
+      </div>
+    </div>
+  </section>`;
+}
+
+CATEGORIES.forEach(cat => {
+  const catArticles = articles.filter(a => a.category === cat).slice(0, 3);
+  const slug = cat.toLowerCase().replace('.', '').replace(' ', '-');
+  html += `
+  <section>
+    <div class="section-header">
+      <h2>${cat}</h2>
+      <a class="viewall" href="${BASE}/category/${slug}/">View all →</a>
+    </div>`;
+  if (catArticles.length) {
+    html += `<div class="card-grid">`;
+    catArticles.forEach(a => {
+      html += `
+      <article class="card" onclick="location.href='${a.url}'">
+        ${a.image ? `<img src="${a.image}" alt="${a.title}">` : ''}
+        <div class="card-body">
+          <h3>${a.title}</h3>
+          ${a.summary ? `<ul class="smart-brevity"><li>${a.summary}</li></ul>` : ''}
+          <p class="byline">${a.author}</p>
+        </div>
+      </article>`;
+    });
+    html += `</div>`;
+  } else {
+    html += `<p class="empty-section">No articles yet in this category.</p>`;
+  }
+  html += `</section>`;
+});
+
+main.innerHTML = html;
 </script>
