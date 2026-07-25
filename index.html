@@ -1,78 +1,146 @@
----
-layout: base.njk
-title: Home
-permalink: /
----
-
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Articles of America</title>
 <style>
+  :root {
+    --navy: #0A1A35;
+    --red: #B0303A;
+    --paper: #F7F5F0;
+    --ink: #1C1C1C;
+    --steel: #3D5A80;
+    --hairline: #D8D4CC;
+    --white: #FFFFFF;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.4;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+  .utility-bar { background: var(--navy); color: rgba(255,255,255,0.75); font-size: 12.5px; }
+  .utility-bar .wrap { display: flex; justify-content: space-between; align-items: center; height: 34px; }
+  .utility-bar nav a { margin-left: 16px; color: rgba(255,255,255,0.75); }
+  .masthead { background: var(--paper); padding: 28px 0 16px; text-align: center; }
+  .masthead h1 { font-family: Georgia, serif; font-weight: 700; font-size: 52px; color: var(--navy); }
+  .masthead a { color: var(--navy); }
+  .masthead .tagline { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--steel); margin-top: 6px; font-weight: 600; }
+  .tri-rule { height: 5px; width: 100%; background: linear-gradient(to right, var(--red) 0 33.33%, var(--white) 33.33% 66.66%, var(--steel) 66.66% 100%); }
+  .main-nav { background: var(--navy); border-bottom: 3px solid var(--red); }
+  .main-nav ul { display: flex; list-style: none; flex-wrap: wrap; }
+  .main-nav li a { display: block; color: var(--white); font-size: 14px; font-weight: 600; padding: 13px 18px; text-transform: uppercase; }
+  .main-nav li a:hover { background: rgba(255,255,255,0.08); }
+  .live-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--red); margin-right: 6px; animation: pulse 1.8s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
   .lead-section { padding: 34px 0 10px; }
   .lead-grid { display: grid; grid-template-columns: 1.7fr 1fr; gap: 32px; }
-  .eyebrow {
-    font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--red);
-    margin-bottom: 8px; display: inline-block;
-  }
-  .lead-story img {
-    width: 100%; aspect-ratio: 16/9; object-fit: cover;
-    background: #ccc; border-radius: 2px;
-  }
-  .lead-story h2 {
-    font-family: Georgia, "Times New Roman", Times, serif;
-    font-size: 34px; line-height: 1.12;
-    margin: 14px 0 10px; color: var(--navy);
-  }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; display: inline-block; }
+  .lead-story img { width: 100%; aspect-ratio: 16/9; object-fit: cover; background: #ccc; border-radius: 2px; }
+  .lead-story h2 { font-family: Georgia, serif; font-size: 34px; line-height: 1.12; margin: 14px 0 10px; color: var(--navy); }
   .lead-story p.dek { font-size: 16px; color: #4a4a4a; margin-bottom: 10px; }
   .byline { font-size: 12.5px; color: #777; text-transform: uppercase; letter-spacing: 0.03em; }
   .secondary-stack { display: flex; flex-direction: column; gap: 18px; }
-  .secondary-story {
-    display: grid; grid-template-columns: 1fr 96px; gap: 14px;
-    border-bottom: 1px solid var(--hairline); padding-bottom: 16px;
-  }
+  .secondary-story { display: grid; grid-template-columns: 1fr 96px; gap: 14px; border-bottom: 1px solid var(--hairline); padding-bottom: 16px; }
   .secondary-story:last-child { border-bottom: none; }
   .secondary-story img { width: 96px; height: 72px; object-fit: cover; background: #ccc; border-radius: 2px; }
-  .secondary-story h3 {
-    font-family: Georgia, "Times New Roman", Times, serif;
-    font-size: 17px; line-height: 1.25; color: var(--navy);
-  }
-  .secondary-story .byline { margin-top: 6px; }
-  .section-header {
-    display: flex; align-items: baseline; justify-content: space-between;
-    border-top: 3px solid var(--navy); padding-top: 10px; margin: 38px 0 18px;
-  }
-  .section-header h2 {
-    font-family: Georgia, "Times New Roman", Times, serif;
-    font-size: 22px; color: var(--navy);
-    text-transform: uppercase; letter-spacing: 0.04em;
-  }
+  .secondary-story h3 { font-family: Georgia, serif; font-size: 17px; line-height: 1.25; color: var(--navy); }
+  .section-header { display: flex; align-items: baseline; justify-content: space-between; border-top: 3px solid var(--navy); padding-top: 10px; margin: 38px 0 18px; }
+  .section-header h2 { font-family: Georgia, serif; font-size: 22px; color: var(--navy); text-transform: uppercase; letter-spacing: 0.04em; }
   .section-header a.viewall { font-size: 13px; font-weight: 600; color: var(--steel); }
-  .section-header a.viewall:hover { color: var(--red); }
   .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-  .card {
-    background: var(--white); border: 1px solid var(--hairline);
-    border-radius: 6px; overflow: hidden; display: flex; flex-direction: column;
-    cursor: pointer;
-  }
+  .card { background: var(--white); border: 1px solid var(--hairline); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; }
   .card img { width: 100%; aspect-ratio: 16/10; object-fit: cover; background: #ccc; }
   .card-body { padding: 16px 18px 18px; flex: 1; display: flex; flex-direction: column; }
-  .card h3 {
-    font-family: Georgia, "Times New Roman", Times, serif;
-    font-size: 18px; line-height: 1.25; color: var(--navy); margin-bottom: 10px;
-  }
+  .card h3 { font-family: Georgia, serif; font-size: 18px; line-height: 1.25; color: var(--navy); margin-bottom: 10px; }
   .smart-brevity { list-style: none; font-size: 13.5px; color: #444; margin: 0 0 12px; flex: 1; }
   .smart-brevity li { position: relative; padding-left: 14px; margin-bottom: 5px; }
   .smart-brevity li::before { content: "•"; color: var(--red); font-weight: 700; position: absolute; left: 0; }
   .card .byline { margin-top: auto; }
   .empty-section { color: #999; font-size: 14px; font-style: italic; padding: 10px 0 20px; }
-  @media (max-width: 860px) { .lead-grid { grid-template-columns: 1fr; } .card-grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 560px) { .card-grid { grid-template-columns: 1fr; } .secondary-story { grid-template-columns: 1fr 80px; } .secondary-story img { width: 80px; height: 60px; } }
+  footer { background: var(--navy); color: rgba(255,255,255,0.7); margin-top: 50px; padding: 36px 0 28px; font-size: 13px; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+  footer .brand { font-family: Georgia, serif; font-size: 20px; color: var(--white); font-weight: 700; }
+  footer .cols { display: flex; gap: 40px; flex-wrap: wrap; }
+  footer .cols a { display: block; margin-bottom: 8px; color: rgba(255,255,255,0.65); }
+  footer .legal { text-align: center; margin-top: 28px; color: rgba(255,255,255,0.4); font-size: 12px; }
+  @media (max-width: 860px) { .lead-grid { grid-template-columns: 1fr; } .card-grid { grid-template-columns: 1fr 1fr; } .masthead h1 { font-size: 38px; } }
+  @media (max-width: 560px) { .card-grid { grid-template-columns: 1fr; } }
 </style>
+</head>
+<body>
+
+<div class="utility-bar">
+  <div class="wrap">
+    <span id="todayDate"></span>
+    <nav>
+      <a href="/evantc2010-ally-Articles-of-America/#">Newsletter</a>
+      <a href="/evantc2010-ally-Articles-of-America/#">Sign In</a>
+      <a href="/evantc2010-ally-Articles-of-America/#">Subscribe</a>
+    </nav>
+  </div>
+</div>
+
+<header class="masthead">
+  <h1><a href="/evantc2010-ally-Articles-of-America/">Articles of America</a></h1>
+  <p class="tagline">Clear reporting. Every story, straight.</p>
+</header>
+
+<div class="tri-rule"></div>
+
+<nav class="main-nav">
+  <div class="wrap">
+    <ul>
+      <li><a href="/evantc2010-ally-Articles-of-America/">Home</a></li>
+      <li><a href="/evantc2010-ally-Articles-of-America/category/us/">U.S.</a></li>
+      <li><a href="/evantc2010-ally-Articles-of-America/category/world/">World</a></li>
+      <li><a href="/evantc2010-ally-Articles-of-America/category/politics/">Politics</a></li>
+      <li><a href="/evantc2010-ally-Articles-of-America/category/weather/">Weather</a></li>
+      <li><a href="/evantc2010-ally-Articles-of-America/category/business/">Business</a></li>
+      <li><a href="/evantc2010-ally-Articles-of-America/category/tech/">Tech</a></li>
+      <li><a href="/evantc2010-ally-Articles-of-America/category/sports/">Sports</a></li>
+      <li><a href="/evantc2010-ally-Articles-of-America/#"><span class="live-dot"></span>Live</a></li>
+    </ul>
+  </div>
+</nav>
 
 <main class="wrap" id="main-content">
   <p style="color:red; padding: 40px 0; text-align:center;">TEST - If you see this, JavaScript is not running</p>
 </main>
 
+<footer>
+  <div class="wrap">
+    <div><p class="brand">Articles of America</p></div>
+    <div class="cols">
+      <div>
+        <a href="/evantc2010-ally-Articles-of-America/articles/about-articles-of-america/">About Us</a>
+        <a href="/evantc2010-ally-Articles-of-America/#">Newsroom Ethics</a>
+        <a href="/evantc2010-ally-Articles-of-America/#">Careers</a>
+      </div>
+      <div>
+        <a href="/evantc2010-ally-Articles-of-America/#">Contact</a>
+        <a href="/evantc2010-ally-Articles-of-America/#">Advertise</a>
+        <a href="/evantc2010-ally-Articles-of-America/#">Privacy Policy</a>
+      </div>
+      <div>
+        <a href="/evantc2010-ally-Articles-of-America/#">RSS</a>
+        <a href="/evantc2010-ally-Articles-of-America/#">Newsletter</a>
+        <a href="/evantc2010-ally-Articles-of-America/#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+  <p class="legal">© 2026 Articles of America. All rights reserved.</p>
+</footer>
+
 <script>
+document.getElementById('todayDate').textContent = new Date().toLocaleDateString('en-US', {
+  weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+});
+
 const BASE = '/evantc2010-ally-Articles-of-America';
 const CATEGORIES = ['U.S.', 'World', 'Politics', 'Weather', 'Business', 'Tech', 'Sports'];
 
@@ -173,4 +241,6 @@ CATEGORIES.forEach(cat => {
 
 main.innerHTML = html;
 </script>
-{% endblock %}
+
+</body>
+</html>
