@@ -33,4 +33,4 @@ Senator Paul announced that the committee would hold a vote to determine whether
 
 After the hearing, Fauci’s lawyer declined to explain why he advised Fauci to plead the Fifth more than 80 times, stating only that Fauci “had a valid Fifth Amendment claim and he has the right to assert it… that’s all I was trying to tell the committee.”
 
-President Trump has not commented on the hearing, though he previously referred to Fauci as “crazy” before the proceedings began.
+President Trump has commented on the hearing in a press conference in the oval office. He said that he and Fauci "disagreed on a lot." He was also asked whether or not he would reopen the investigation into the autopen allegedly used by former President Biden to pardon Fauci. He didn't give a direct answer but said that the power of pardon is very powerful and that he respected the pardon.
