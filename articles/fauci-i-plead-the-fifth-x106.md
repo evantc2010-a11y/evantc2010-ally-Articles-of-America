@@ -1,5 +1,5 @@
 ---
-title: "Fauci: I plead the fifth(x106)"
+title: "Fauci: I plead the fifth(x111)"
 category: Politics
 author: Evan Chen
 image: /images/screen-shot-2026-07-29-at-10.45.57-am.png
@@ -9,7 +9,7 @@ date: 2026-07-29T14:49:00.000-05:00
 ---
 Dr. Anthony Fauci testified on Capitol Hill today regarding his response to the 2020 coronavirus pandemic.
 
-It was not a traditional testimony, however. For nearly every question asked, Fauci invoked the Fifth Amendment, declining to answer. In total, he pleaded the Fifth 106 times.
+It was not a traditional testimony, however. For nearly every question asked, Fauci invoked the Fifth Amendment, declining to answer. In total, he pleaded the Fifth 111 times.
 
 In his opening statement, Fauci criticized Senator Rand Paul of Kentucky, with whom he has clashed repeatedly in the past.“Given Senator Paul’s obvious obsession with calling for my prosecution, his repeated slanderous comments about me, and recently, his public releasing of my unredacted personal diary aimed at embarrassing and intimidating me,” Fauci said.
 
