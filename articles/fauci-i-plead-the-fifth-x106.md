@@ -13,7 +13,7 @@ It was not a traditional testimony, however. For nearly every question asked, Fa
 
 In his opening statement, Fauci criticized Senator Rand Paul of Kentucky, with whom he has clashed repeatedly in the past.“Given Senator Paul’s obvious obsession with calling for my prosecution, his repeated slanderous comments about me, and recently, his public releasing of my unredacted personal diary aimed at embarrassing and intimidating me,” Fauci said.
 
-It's ironic because some critics have noted that Fauci’s own released diary portrays him as self‑absorbed with fame and fortune.
+It's ironic because some critics have noted that Fauci’s own released diary portrays him as that very obsessive person, though, this obsession was of himself instead.
 
 Senator Paul proceeded with several questions, all of which Fauci answered with the same statement:
 
@@ -26,7 +26,7 @@ Republican senators continued pressing Fauci directly:
 * **Josh Hawley (Missouri)**  Criticized Fauci for invoking the Fifth, saying, “You don’t have any rights under the Fifth Amendment because you’ve been pardoned.” He also accused Fauci of using federal employees and taxpayer money to enrich himself through cash awards.
 * **Ashley Moody (Florida)**  Accused Fauci of lying about mask mandates, citing a *60 Minutes* interview in which Fauci initially said masks were unnecessary in public—contradicting later CDC guidance recommending mask use.
 * **Rick Scott (Florida)**  Called Fauci a “liar, failure, and coward,” accusing him of “hiding behind a fraudulent pardon.”
-* **Ron Johnson (Wisconsin)**  Asked whether Fauci believed a pulmonary infarction could have been caused by booster shots he recommended. Fauci again pleaded the Fifth.
+* **Ron Johnson (Wisconsin)**  Asked whether Fauci believed a pulmonary infection could have been caused by booster shots he recommended. Fauci again pleaded the Fifth.
 * **Bernie Moreno (Ohio)**  Called Fauci a “disgrace” while questioning his right to plead the Fifth. After briefly consulting his attorney, Fauci again declined to answer.
 
 Senator Paul announced that the committee would hold a vote to determine whether Dr. Fauci should be held in contempt of Congress, a charge that could carry up to one year in prison.
