@@ -13,7 +13,7 @@ collections:
     slug: "{{slug}}"
     fields:
       - { label: "Headline", name: "title", widget: "string" }
-       - { label: "Category", name: "category", widget: "select", options: ["U.S.", "World", "Politics", "Weather", "Business", "Tech", "Sports"] }
+      - { label: "Category", name: "category", widget: "select", options: ["U.S.", "World", "Politics", "Weather", "Business", "Tech", "Sports"] }
       - { label: "Author", name: "author", widget: "string" }
       - { label: "Featured Image", name: "image", widget: "image" }
       - { label: "Summary Bullets", name: "summary", widget: "list" }
