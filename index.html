@@ -15,21 +15,19 @@
     --white: #FFFFFF;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    background: var(--paper);
-    color: var(--ink);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    line-height: 1.4;
-  }
+  body { background: var(--paper); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.4; }
   a { color: inherit; text-decoration: none; }
   .wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
   .utility-bar { background: var(--navy); color: rgba(255,255,255,0.75); font-size: 12.5px; }
   .utility-bar .wrap { display: flex; justify-content: space-between; align-items: center; height: 34px; }
   .utility-bar nav a { margin-left: 16px; color: rgba(255,255,255,0.75); }
   .masthead { background: var(--paper); padding: 28px 0 16px; text-align: center; }
-  .masthead h1 { font-family: Georgia, serif; font-weight: 700; font-size: 52px; color: var(--navy); }
-  .masthead a { color: var(--navy); }
-  .masthead .tagline { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--steel); margin-top: 6px; font-weight: 600; }
+  .masthead h1 { display: inline-block; border: 5px solid var(--navy); padding: 14px 30px 16px; line-height: 1; text-transform: uppercase; font-family: Georgia, "Times New Roman", serif; font-weight: 700; color: var(--navy); }
+  .masthead h1 a { color: var(--navy); display: block; }
+  .logo-top { display: block; font-size: 26px; letter-spacing: 0.5em; margin-right: -0.5em; text-align: center; padding-bottom: 8px; margin-bottom: 8px; border-bottom: 3px solid var(--red); }
+  .logo-bottom { display: block; font-size: 68px; letter-spacing: 0.03em; }
+  .quill { display: inline-block; height: 0.8em; width: 0.34em; vertical-align: -0.04em; color: var(--red); }
+  .masthead .tagline { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--steel); margin-top: 10px; font-weight: 600; }
   .tri-rule { height: 5px; width: 100%; background: linear-gradient(to right, var(--red) 0 33.33%, var(--white) 33.33% 66.66%, var(--steel) 66.66% 100%); }
   .main-nav { background: var(--navy); border-bottom: 3px solid var(--red); }
   .main-nav ul { display: flex; list-style: none; flex-wrap: wrap; }
@@ -68,7 +66,7 @@
   footer .cols { display: flex; gap: 40px; flex-wrap: wrap; }
   footer .cols a { display: block; margin-bottom: 8px; color: rgba(255,255,255,0.65); }
   footer .legal { text-align: center; margin-top: 28px; color: rgba(255,255,255,0.4); font-size: 12px; }
-  @media (max-width: 860px) { .lead-grid { grid-template-columns: 1fr; } .card-grid { grid-template-columns: 1fr 1fr; } .masthead h1 { font-size: 38px; } }
+  @media (max-width: 860px) { .lead-grid { grid-template-columns: 1fr; } .card-grid { grid-template-columns: 1fr 1fr; } .logo-bottom { font-size: 44px; } .logo-top { font-size: 17px; letter-spacing: 0.4em; margin-right: -0.4em; } }
   @media (max-width: 560px) { .card-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
@@ -86,7 +84,7 @@
 </div>
 
 <header class="masthead">
-  <h1><a href="/evantc2010-ally-Articles-of-America/">Articles of America</a></h1>
+  <h1><a href="/evantc2010-ally-Articles-of-America/" aria-label="Articles of America"><span class="logo-top">Articles of</span><span class="logo-bottom">Amer<svg class="quill" viewBox="0 0 30 80" aria-hidden="true"><path d="M22 2 C8 14 4 38 12 60 C20 46 26 22 22 2 Z" fill="currentColor"/><path d="M23 3 L12 68" stroke="#F7F5F0" stroke-width="1.6" fill="none"/><path d="M17 20 L11 24 M15 31 L8 35 M13 42 L7 46 M19 28 L14 31" stroke="#F7F5F0" stroke-width="1" fill="none"/><path d="M12 62 L9.5 79 L15 70 Z" fill="#0A1A35"/></svg>ca</span></a></h1>
   <p class="tagline">Always there. For every story.</p>
 </header>
 
@@ -109,7 +107,7 @@
 </nav>
 
 <main class="wrap" id="main-content">
-  <p style="color:red; padding: 40px 0; text-align:center;">TEST - If you see this, JavaScript is not running</p>
+  <p style="color:#999; padding: 40px 0; text-align:center;">Loading articles...</p>
 </main>
 
 <footer>
@@ -145,7 +143,7 @@ const BASE = '/evantc2010-ally-Articles-of-America';
 const CATEGORIES = ['U.S.', 'World', 'Politics', 'Weather', 'Business', 'Tech', 'Sports'];
 
 const articles = [
- {
+  {
     "title": "Pope Leo XIV announces surgery for lung nodule",
     "category": "World",
     "author": "Evan Chen",
@@ -199,7 +197,7 @@ const articles = [
     "url": "/evantc2010-ally-Articles-of-America/articles/mitch-mcconnell-out-of-rehab-new-statement-released/",
     "date": "2026-08-06"
   },
-   {
+  {
     "title": "Mayor Mamdani could be banned from attending 9/11 remembrance ceremony",
     "category": "U.S.",
     "author": "Evan Chen",
@@ -227,15 +225,6 @@ const articles = [
     "date": "2026-07-28"
   },
   {
-    "title": "US cuts all trade with NATO ally Spain",
-    "category": "World",
-    "author": "Evan Chen",
-    "image": "/evantc2010-ally-Articles-of-America/images/1653346_0.jpeg.webp",
-    "summary": "Trump demands END to Spanish Trade",
-    "url": "/evantc2010-ally-Articles-of-America/articles/breaking/",
-    "date": "2026-07-08"
-  },
-  {
     "title": "Andy Burnham is UK's next Prime Minister",
     "category": "World",
     "author": "Evan Chen",
@@ -251,6 +240,15 @@ const articles = [
     "image": "",
     "summary": "",
     "url": "/evantc2010-ally-Articles-of-America/articles/breaking-graham-platner-announces-he-will-drop-out-of-the-race-for-u-s-senate-following-bombshell-allegations-of-rape/",
+    "date": "2026-07-08"
+  },
+  {
+    "title": "US cuts all trade with NATO ally Spain",
+    "category": "World",
+    "author": "Evan Chen",
+    "image": "/evantc2010-ally-Articles-of-America/images/1653346_0.jpeg.webp",
+    "summary": "Trump demands END to Spanish Trade",
+    "url": "/evantc2010-ally-Articles-of-America/articles/breaking/",
     "date": "2026-07-08"
   }
 ];
